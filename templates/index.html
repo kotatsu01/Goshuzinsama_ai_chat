@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ご主人様AIチャット</title>
+  <script>
+    async function sendAnswer() {
+      const formData = new FormData(document.getElementById("answerForm"));
+      await fetch("/submit", { method: "POST", body: formData });
+      alert("回答を送信しました！");
+    }
+
+    async function askQuestion() {
+      const formData = new FormData(document.getElementById("questionForm"));
+      const res = await fetch("/ask", { method: "POST", body: formData });
+      const data = await res.json();
+      document.getElementById("result").innerText = data.response;
+      document.getElementById("feedbackButtons").style.display = "block";
+    }
+
+    async function sendFeedback(rating) {
+      const formData = new FormData();
+      formData.append("rating", rating);
+      await fetch("/feedback", { method: "POST", body: formData });
+      alert("フィードバックありがとうございます！");
+    }
+  </script>
+</head>
+<body>
+  <h2>📝 ご主人様の知識を追加</h2>
+  <form id="answerForm" onsubmit="event.preventDefault(); sendAnswer();">
+    <input type="text" name="new_answer" placeholder="A.回答を入力">
+    <button type="submit">送信</button>
+  </form>
+
+  <h2>❓ ご主人様からのご質問</h2>
+  <form id="questionForm" onsubmit="event.preventDefault(); askQuestion();">
+    <input type="text" name="question" placeholder="質問を入力">
+    <button type="submit">質問する</button>
+  </form>
+
+  <h3>🗨️ お返事:</h3>
+  <div id="result"></div>
+  <div id="feedbackButtons" style="display:none;">
+    <button onclick="sendFeedback('good')">👍</button>
+    <button onclick="sendFeedback('bad')">👎</button>
+  </div>
+</body>
+</html>
