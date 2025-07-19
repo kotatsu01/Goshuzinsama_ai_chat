@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>ご主人様AIチャット</title>
+  <link href="./index.css" rel="stylesheet">
   <script>
     async function sendAnswer() {
       const formData = new FormData(document.getElementById("answerForm"));
@@ -27,23 +28,29 @@
   </script>
 </head>
 <body>
-  <h2>📝 知識の追加</h2>
-  <form id="answerForm" onsubmit="event.preventDefault(); sendAnswer();">
-    <input type="text" name="new_answer" placeholder="A.回答を入力">
-    <button type="submit">送信</button>
-  </form>
-
-  <h2>❓ ご質問コーナー</h2>
-  <form id="questionForm" onsubmit="event.preventDefault(); askQuestion();">
-    <input type="text" name="question" placeholder="質問を入力">
-    <button type="submit">質問する</button>
-  </form>
-
   <h3>🗨️ お返事:</h3>
   <div id="result"></div>
   <div id="feedbackButtons" style="display:none;">
     <button onclick="sendFeedback('good')">👍</button>
     <button onclick="sendFeedback('bad')">👎</button>
   </div>
+  <br>
+  <br>
+  <br>
+  <ul class="allform">
+    <form id="answerForm" onsubmit="event.preventDefault(); sendAnswer();">
+      <li>
+        <input class="button1" type="text" name="new_answer" placeholder="💡 知識を送信">
+        <button class="button0" type="submit">送信</button>
+      </li>
+    </form>
+    
+    <form id="questionForm" onsubmit="event.preventDefault(); askQuestion();">
+      <li>
+        <input class="button2" type="text" name="question" placeholder="❓ ご主人様からのご質問">
+        <button class="button0" type="submit">送信</button>
+      </li>
+    </form>
+  </ul>
 </body>
 </html>
